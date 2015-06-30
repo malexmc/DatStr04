@@ -22,8 +22,9 @@ int main(){
   poop.push_back(0);
 
   vector<int>* sorted = new vector<int>;
-  sorted = Sorter::quickSort(&poop);
+  sorted = Sorter::hybridSort(&poop, "QuickSort", "insertionSort", 2);
 
+/*
   cout << "Sorted: ";
   for (unsigned int ii = 0; ii < sorted->size(); ii++){
     cout << sorted->at(ii) << ',';
@@ -35,5 +36,7 @@ int main(){
     cout << poop.at(ii) << ',';
   }
   cout << endl;
+*/
+
   return 0;
 }

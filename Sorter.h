@@ -2,6 +2,7 @@
 #define Sorter_H
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ public:
     static vector<int>* insertionSort(vector<int>*);
     static vector<int>* bubbleSort(vector<int>*);
     static vector<int>* quickSort(vector<int>*);
+    static vector<int>* hybridSort(vector<int>*, string, string, unsigned int);
     static bool isUnique1(vector<int>*, int first, int last);
     static bool isUnique2(vector<int>*, int first, int last);
     static bool isUnique3(vector<int>*, int first, int last);
