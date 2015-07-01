@@ -1,3 +1,5 @@
+//#include "stdafx.h"
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -19,50 +21,51 @@ vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
   }
   
   //printing
+  /*
   cout << "copied." << endl;
   for (unsigned int ii = 0; ii < unsorted->size(); ii++){
     cout << sorter->at(ii) << ",";
   }
-  cout << endl;
+  cout << endl;*/
   
   
   //once filled, begin sorting the new array.
-  for (unsigned int ii = 0; ii < sorter->size(); ii++) {
-      bool swapped = false;
-      for (unsigned int jj = 0; jj < sorter->size() - ii; jj++) {
-          if (jj + 1 < sorter->size()) {
-              if (sorter->at(jj) > sorter->at(jj + 1)) {
-                  int temp = sorter->at(jj + 1);
-                  sorter->at(jj + 1) = sorter->at(jj);
-                  sorter->at(jj) = temp;
-                  swapped = true;
-              }
-          }
-      }
+	for (unsigned int ii = 0; ii < sorter->size(); ii++) {
+		bool swapped = false;
+		for (unsigned int jj = 0; jj < sorter->size() - ii; jj++) {
+			if (jj + 1 < sorter->size()) {
+				if (sorter->at(jj) > sorter->at(jj + 1)) {
+					int temp = sorter->at(jj + 1);
+					sorter->at(jj + 1) = sorter->at(jj);
+					sorter->at(jj) = temp;
+					swapped = true;
+				}
+			}
+		}
       
-      if (!swapped) {
-           cout << "returning" << endl;
-          return sorter;
-      }
-  }
+		if (!swapped) {
+			//cout << "returning" << endl;
+			return sorter;
+		}
+	}
 
-  //return the new, sorted array
-  for (unsigned int ii = 0; ii < unsorted->size(); ii++){
-    cout << sorter->at(ii) << ",";
-  }
-  return sorter;
+	//return the new, sorted array
+	for (unsigned int ii = 0; ii < unsorted->size(); ii++) {
+		//cout << sorter->at(ii) << ",";
+	}
+	return sorter;
 }
 
 
 
 //tests to see if an int vector is sorted in ascending order
 bool Sorter::isSorted(vector<int>* sort_vector){
-  for(unsigned int i = 0; i < sort_vector->size()-1; i++){
-    if((*sort_vector)[i] > (*sort_vector)[i+1]){
-      return false;
-    }
-  }
-  return true;
+	for(unsigned int i = 0; i < sort_vector->size()-1; i++) {
+		if((*sort_vector)[i] > (*sort_vector)[i+1]) {
+			return false;
+		}
+	}
+	return true;
 }
 
 
@@ -320,7 +323,7 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
     
     //Perform mergesort if chosen
     if(large.compare("mergeSort") == 0){
-        cout << "merge" << endl;
+        //cout << "merge" << endl;
 
         vector<int>* temp1 = new vector<int>;
         vector<int>* temp2 = new vector<int>;
