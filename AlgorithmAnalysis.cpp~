@@ -23,7 +23,7 @@ vector<int>* getRandomlyGeneratedVector(unsigned int length);
 vector<int>* getListFromUser(unsigned int length);
 void printList(vector<int>* list);
 
-int main(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	// <will>
 	// Seed the random number generator

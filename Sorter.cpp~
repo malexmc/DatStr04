@@ -409,7 +409,7 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
 
         //store the right half of the sorter vector in right
         vector<int>* right = new vector<int>();
-        for (unsigned int ii = last+1; ii < sorter->size(); ii++){
+        for (unsigned int ii = first; ii < sorter->size(); ii++){
           right->push_back(sorter->at(ii));
         }
 

@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -ggdb -I.
 LDFLAGS=
-SOURCES=Main.cpp Sorter.cpp
+SOURCES= AlgorithmAnalysis.cpp Sorter.cpp
 EXECUTABLE=execute.out
 
 TESTS = IntVec_test.h
