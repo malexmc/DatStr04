@@ -16,6 +16,7 @@ public:
     static bool isUnique1(vector<int>*, int first, int last);
     static bool isUnique2(vector<int>*, int first, int last);
     static bool isUnique3(vector<int>*, int first, int last);
+    static int comparisonCounter;
     
 private:
     static bool isSorted(vector<int>*);
