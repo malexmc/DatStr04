@@ -20,14 +20,6 @@ vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
     sorter->push_back(unsorted->at(ii));
   }
   
-  //printing
-  /*
-  cout << "copied." << endl;
-  for (unsigned int ii = 0; ii < unsorted->size(); ii++){
-    cout << sorter->at(ii) << ",";
-  }
-  cout << endl;*/
-  
   
   //once filled, begin sorting the new array.
 	for (unsigned int ii = 0; ii < sorter->size(); ii++) {
@@ -45,15 +37,10 @@ vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
 		}
       
 		if (!swapped) {
-			//cout << "returning" << endl;
 			return sorter;
 		}
 	}
 
-	//return the new, sorted array
-	for (unsigned int ii = 0; ii < unsorted->size(); ii++) {
-		//cout << sorter->at(ii) << ",";
-	}
 	return sorter;
 }
 
@@ -61,12 +48,12 @@ vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
 
 //tests to see if an int vector is sorted in ascending order
 bool Sorter::isSorted(vector<int>* sort_vector){
-	for(unsigned int i = 0; i < sort_vector->size()-1; i++) {
-		if((*sort_vector)[i] > (*sort_vector)[i+1]) {
-			return false;
-		}
-	}
-	return true;
+    for(unsigned int i = 0; i < sort_vector->size()-1; i++) {
+        if((*sort_vector)[i] > (*sort_vector)[i+1]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -103,20 +90,13 @@ vector<int>* Sorter::merge(vector<int>* a, vector<int>* b){
 //parmeter vector
 vector<int>* Sorter::mergeSort(vector<int>* unsorted){
 
-  /*cout << "taking in:";
-  for (unsigned int ii = 0; ii < merger->size(); ii++){
-    cout << merger->at(ii) << " ";
-  }
-  cout << endl;*/
-  
-  
   if(unsorted->size() <= 1){
     return unsorted;
   }
   if(!Sorter::isSorted(unsorted)){
 
     // Make a new array
-	  vector<int>* sorter = new vector<int>;
+    vector<int>* sorter = new vector<int>;
 
     //copy parameter array into new array
     for (unsigned int ii = 0; ii < unsorted->size(); ii++){
@@ -137,24 +117,20 @@ vector<int>* Sorter::mergeSort(vector<int>* unsorted){
         temp2->push_back((*sorter)[i]);
       }
     }
+    
+    //Perform a recusrive call
     temp1 = Sorter::mergeSort(temp1);
     temp2 = Sorter::mergeSort(temp2);
+    
+    //Merge the two sorted arrays
     sorter = Sorter::merge(temp1, temp2);
+    
+    //Clean up 
     delete temp1;
     delete temp2;
-      /*cout << "giving back:";
-      for (unsigned int ii = 0; ii < merger->size(); ii++){
-        cout << merger->at(ii) << " ";
-      }
-      cout << endl;*/
+    
     return sorter;
   }
-  
-  /*cout << "did nothing:";
-  for (unsigned int ii = 0; ii < merger->size(); ii++){
-    cout << merger->at(ii) << " ";
-  }
-  cout << endl;*/
   return unsorted;
 }
 
@@ -180,20 +156,9 @@ vector<int>* Sorter::insertionSort(vector<int>* unsorted){
 }
 
 
-
-
 //quickSorts a vector of ints. Does not alter the parameter array.
 
 vector<int>* Sorter::quickSort(vector<int>* unsorted){
-
-/*
-  cout << "array to sort: ";
-  for (unsigned int ii = 0; ii < unsorted->size(); ii++){
-    cout << unsorted->at(ii) << ",";
-  }
-  cout << endl;
-*/
-
 
   // Make a new array
   vector<int>* sorter = new vector<int>();
@@ -226,11 +191,6 @@ vector<int>* Sorter::quickSort(vector<int>* unsorted){
         sorter->at(first) = temp;
         first++;
         last--;
-        
-        //if(first != last + 1){
-        //    last--;
-        //}
-        
       }
     }
 
@@ -246,23 +206,6 @@ vector<int>* Sorter::quickSort(vector<int>* unsorted){
       right->push_back(sorter->at(ii));
     }
 
-
-/*
-    // show me what we've got
-    cout << "First: " << first << endl;
-    cout << "Last: " << last << endl;    
-    cout << "left:  ";
-    for (unsigned int ii = 0; ii < left->size(); ii++){
-      cout << left->at(ii) << "," ;
-    }
-    cout << endl << "left size:  " << left->size() << endl << "right: ";
-
-    for (unsigned int ii = 0; ii < right->size(); ii++){
-      cout << right->at(ii) << "," ;
-    }
-    cout << endl << "right size: " << right->size() << endl << endl;
- */
- 
     
     //quick sort the halves and destroy the left and right vectors
     vector<int>* sorted_left = Sorter::quickSort(left);
@@ -356,7 +299,6 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
     
     //Perform mergesort if chosen
     if(large.compare("mergeSort") == 0){
-        //cout << "merge" << endl;
 
         vector<int>* temp1 = new vector<int>;
         vector<int>* temp2 = new vector<int>;
@@ -372,16 +314,17 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
             temp2->push_back((*sorter)[i]);
           }
         }
+        
+        //Recursive calls on the sub-arrays
         temp1 = Sorter::hybridSort(temp1, large, small, t);
         temp2 = Sorter::hybridSort(temp2, large, small, t);
+        
+        //Merge the two sorted sub-arrays
         sorter = Sorter::merge(temp1, temp2);
+        
+        //clean up
         delete temp1;
         delete temp2;
-          /*cout << "giving back:";
-          for (unsigned int ii = 0; ii < merger->size(); ii++){
-            cout << merger->at(ii) << " ";
-          }
-          cout << endl;*/
         return sorter;
     }
     
@@ -458,12 +401,6 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
     
     }
   }
-  
-  /*cout << "did nothing:";
-  for (unsigned int ii = 0; ii < merger->size(); ii++){
-    cout << merger->at(ii) << " ";
-  }
-  cout << endl;*/
   return sorter;  
 }
 
