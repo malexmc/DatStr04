@@ -13,7 +13,7 @@ using namespace std;
 vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
 
   // Make a new array
-	vector<int>* sorter = new vector<int>;
+    vector<int>* sorter = new vector<int>;
 
   //copy parameter array into new array
   for (unsigned int ii = 0; ii < unsorted->size(); ii++){
@@ -34,6 +34,7 @@ vector<int>* Sorter::bubbleSort(vector<int>* unsorted) {
 		bool swapped = false;
 		for (unsigned int jj = 0; jj < sorter->size() - ii; jj++) {
 			if (jj + 1 < sorter->size()) {
+                            Sorter::comparisonCounter++;
 				if (sorter->at(jj) > sorter->at(jj + 1)) {
 					int temp = sorter->at(jj + 1);
 					sorter->at(jj + 1) = sorter->at(jj);
@@ -84,10 +85,12 @@ vector<int>* Sorter::merge(vector<int>* a, vector<int>* b){
       ib++;
     }
     else if((*a)[ia] < (*b)[ib]){
+      Sorter::comparisonCounter++;
       sorter->push_back((*a)[ia]);
       ia++;
     }
     else{
+      Sorter::comparisonCounter++;
       sorter->push_back((*b)[ib]);
       ib++;
     }
@@ -165,9 +168,11 @@ vector<int>* Sorter::insertionSort(vector<int>* unsorted){
     int nextVal = (*unsorted)[unsorted_index];
     int tempPos = nextPos;
     while(tempPos > 0 && (*sorted)[tempPos-1] > nextVal){
+      Sorter::comparisonCounter++;
       (*sorted)[tempPos] = (*sorted)[tempPos-1];
       tempPos--;
     }
+    Sorter::comparisonCounter++;
     (*sorted)[tempPos] = nextVal;
     unsorted_index++;
   }
@@ -205,12 +210,15 @@ vector<int>* Sorter::quickSort(vector<int>* unsorted){
     unsigned int last = sorter->size() - 1;
     while (first <= last){
       while(sorter->at(first) < pivot){
+        Sorter::comparisonCounter++;
         first++;
-
       }
+      Sorter::comparisonCounter++;
       while(sorter->at(last) > pivot){
+        Sorter::comparisonCounter++;
         last--;
       }
+      Sorter::comparisonCounter++;
       
       if(first <= last){
         int temp = sorter->at(last);
@@ -387,11 +395,15 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
         unsigned int last = sorter->size() - 1;
         while (first <= last){
           while(sorter->at(first) < pivot){
+              Sorter::comparisonCounter++;
             first++;
           }
+          Sorter::comparisonCounter++;
           while(sorter->at(last) > pivot){
+              Sorter::comparisonCounter++;
             last--;
           }
+          Sorter::comparisonCounter++;
           if(first <= last){
             int temp = sorter->at(last);
             sorter->at(last) = sorter->at(first);
@@ -454,6 +466,8 @@ vector<int>* Sorter::hybridSort(vector<int>*    unsorted,
   cout << endl;*/
   return sorter;  
 }
+
+int Sorter::comparisonCounter = 0;
 
 
 
