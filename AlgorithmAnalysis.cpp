@@ -23,7 +23,7 @@ vector<int>* getRandomlyGeneratedVector(unsigned int length);
 vector<int>* getListFromUser(unsigned int length);
 void printList(vector<int>* list);
 
-int main(int argc, _TCHAR* argv[])
+int main()
 {
 	// <will>
 	// Seed the random number generator
@@ -113,10 +113,18 @@ int main(int argc, _TCHAR* argv[])
 		// Sort the list using each combination.
 		// Make sure that hybrid sort is not modifying unsorted!
 		vector<int>* sortedMB = Sorter::hybridSort(unsorted, "mergeSort", "bubbleSort", threshold);
-		vector<int>* sortedMI = Sorter::hybridSort(unsorted, "mergeSort", "insertionSort", threshold);
-		vector<int>* sortedQB = Sorter::hybridSort(unsorted, "quickSort", "bubbleSort", threshold);
-		vector<int>* sortedQI = Sorter::hybridSort(unsorted, "quickSort", "insertionSort", threshold);
-
+		int mbCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedMI = Sorter::hybridSort(unsorted, "mergeSort", "insertionSort", threshold);
+		int miCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedQB = Sorter::hybridSort(unsorted, "quickSort", "bubbleSort", threshold);
+		int qbCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedQI = Sorter::hybridSort(unsorted, "quickSort", "insertionSort", threshold);
+                int qiCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                
 		// <will>
 		// Print the sorted list
 		if (displayList)
@@ -125,7 +133,21 @@ int main(int argc, _TCHAR* argv[])
 			printList(sortedQB);
 			cout << endl;
 		}
-
+                
+                // <john>
+                // Ask if comparison count should be shown.
+                cout << "Display comparison count for each algorithm? (y/n)" << endl;
+			bool displayComparisonCount = getYesOrNo();
+			cout << endl;
+                
+                        if( displayComparisonCount ){
+                            cout << "Total Comparisons" << endl;
+                            cout << "Merge and Bubble: " << mbCount << endl;
+                            cout << "Merge and Insertion: " << miCount << endl;
+                            cout << "Quick and Bubble: " << qbCount << endl;
+                            cout << "Quick and Insertion: " << qiCount << endl;
+                        }
+                        
 		// <will>
 		// Clean up
 		delete unsorted;
@@ -165,8 +187,6 @@ int getPositiveInteger()
 	while (response < 1)
 	{
 		cout << "Please enter a positive integer." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 
@@ -181,8 +201,6 @@ int getInteger()
 	while (cin.fail())
 	{
 		cout << "Please enter an integer." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 	return response;
@@ -199,8 +217,6 @@ bool getYesOrNo()
 	while (response != "y" && response != "Y" && response != "n" && response != "N")
 	{
 		cout << "Please enter y/n." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 
