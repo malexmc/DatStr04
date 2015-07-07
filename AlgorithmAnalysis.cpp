@@ -1,5 +1,15 @@
-// AlgorithmAnalysis.cpp : Defines the entry point for the console application.
-//
+//In the file containing the main function you must write at the top in a comment section the following information
+//Author: Will Hauber, John Mikolay, Matthew McClellan
+//Course title: Data Structures
+////Course number: CS2028
+////Instructor: Anca Ralescu
+//TA: Suryadip Chakraborty
+//Abstract: Used to compare the sorting efficiency of various sorting alrorithms.
+//Preconditions: User will need to follow terminal prompts from the application during runtime.
+//Postconditions: Information printed to screen
+//Credit: Thanks to Dr. Paul Talaga for his Makefile, and to Rosettacode.org for the 
+// quicksorting algorithm pseudocode
+
 
 //#include "stdafx.h"
 #include <iostream>
