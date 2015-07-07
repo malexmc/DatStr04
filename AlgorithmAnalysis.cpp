@@ -1,6 +1,17 @@
 // AlgorithmAnalysis.cpp : Defines the entry point for the console application.
 //
-
+/*------------------------------------------------------
+ -------------------------------------------------------
+ This file is modified to easily test th comparison counts
+ or each sort. It should be used for testing ONLY.
+ It iterates over a range of thresholds which can modified at 
+ line 58. The list size can be modified at line 60.
+ Print statements can be adjusted at lines 81-84 
+ It will loop until all threshold values have ran then ask if 
+ you would like it run again. All sorts and threshold values
+ run on the same list to maintain consistency in comparing results.
+ 
+ */
 //#include "stdafx.h"
 #include <iostream>
 #include <vector>
@@ -23,7 +34,7 @@ vector<int>* getRandomlyGeneratedVector(unsigned int length);
 vector<int>* getListFromUser(unsigned int length);
 void printList(vector<int>* list);
 
-int main(int argc, _TCHAR* argv[])
+int main()
 {
 	// <will>
 	// Seed the random number generator
@@ -43,89 +54,36 @@ int main(int argc, _TCHAR* argv[])
 		// <will>
 		// Get the threshold value
 		unsigned int threshold = 0;
-		cout << "Enter threshold value. This value is the lenth below which an" << endl;
-		cout << "array is considered small." << endl;
-		threshold = getPositiveInteger();
-		cout << endl;
 
-		// <will>
-		// Get the size
-		unsigned int size = 0;
-		cout << "Enter size. Only arrays of size less than or equal to 100 may" << endl;
-		cout << "manually entered in or printed." << endl;
-		size = getPositiveInteger();
-		cout << endl;
+                for(int i = 8; i<17; i++){
+                    threshold = i;
+		unsigned int size = 50;
 
-		// <will>
-		// Declare the unsorted list and displayList boolean
 		vector<int>* unsorted = 0;
-		bool displayList = false;
-
-		// <will>
-		// If the size is reasonably low, allow for manual input/printing
-		if (size <= 100)
-		{
-			// <will>
-			// Determine if we should get the list manually
-			cout << "Enter list manually? (y/n)" << endl;
-			bool enterManually = getYesOrNo();
-			cout << endl;
-
-			if (enterManually)
-			{
-				// <will>
-				// If we should get the list manually, call the appopriate helper method
-				cout << "Enter elements one at a time." << endl;
-				unsorted = getListFromUser(size);
-				cout << endl;
-			}
-			else
-			{
-				// <will>
-				// Otherwise, generate the list randomly
-				unsorted = getRandomlyGeneratedVector(size);
-			}
-			
-			// <will>
-			// Determine if we should print the list
-			cout << "Should list be displayed? (y/n)" << endl;
-			displayList = getYesOrNo();
-			cout << endl;
-		}
-
-		// <will>
-		// If the size is not reasonably low, randomly generate the list and don't print
-		else
-		{
+		
 			unsorted = getRandomlyGeneratedVector(size);
-		}
-
-		// <will>
-		// Print the unsorted list
-		if (displayList)
-		{
-			cout << "List before sorting:" << endl;
-			printList(unsorted);
-			cout << endl;
-		}
 
 		// <will>
 		// Sort the list using each combination.
 		// Make sure that hybrid sort is not modifying unsorted!
 		vector<int>* sortedMB = Sorter::hybridSort(unsorted, "mergeSort", "bubbleSort", threshold);
-		vector<int>* sortedMI = Sorter::hybridSort(unsorted, "mergeSort", "insertionSort", threshold);
-		vector<int>* sortedQB = Sorter::hybridSort(unsorted, "quickSort", "bubbleSort", threshold);
-		vector<int>* sortedQI = Sorter::hybridSort(unsorted, "quickSort", "insertionSort", threshold);
+		int mbCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedMI = Sorter::hybridSort(unsorted, "mergeSort", "insertionSort", threshold);
+		int miCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedQB = Sorter::hybridSort(unsorted, "quickSort", "bubbleSort", threshold);
+		int qbCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                vector<int>* sortedQI = Sorter::hybridSort(unsorted, "quickSort", "insertionSort", threshold);
+                int qiCount = Sorter::comparisonCounter;
+                Sorter::comparisonCounter = 0;
+                            //cout << mbCount << endl;
+                            //cout << miCount << endl;
+                            //cout << qbCount << endl;
+                            cout << qiCount << endl;
 
-		// <will>
-		// Print the sorted list
-		if (displayList)
-		{
-			cout << "List after sorting:" << endl;
-			printList(sortedQB);
-			cout << endl;
-		}
-
+                        
 		// <will>
 		// Clean up
 		delete unsorted;
@@ -137,11 +95,9 @@ int main(int argc, _TCHAR* argv[])
 		delete sortedQB;
 		sortedQB = 0;
 		delete sortedQI;
-		sortedQI = 0;
-
-		// <will>
-		// Ask if we should sort another list
-		cout << "Sort another list? (y/n)" << endl;
+		sortedQI = 0;	
+	}
+                cout << "Sort another list? (y/n)" << endl;
 		bool sortAgain = getYesOrNo();
 		cout << endl;
 
@@ -149,7 +105,7 @@ int main(int argc, _TCHAR* argv[])
 		{
 			break;
 		}
-	}
+        }
 
 	return 0;
 }
@@ -165,8 +121,6 @@ int getPositiveInteger()
 	while (response < 1)
 	{
 		cout << "Please enter a positive integer." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 
@@ -181,8 +135,6 @@ int getInteger()
 	while (cin.fail())
 	{
 		cout << "Please enter an integer." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 	return response;
@@ -199,8 +151,6 @@ bool getYesOrNo()
 	while (response != "y" && response != "Y" && response != "n" && response != "N")
 	{
 		cout << "Please enter y/n." << endl << " :";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> response;
 	}
 
